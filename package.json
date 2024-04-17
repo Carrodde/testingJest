@@ -20,6 +20,10 @@
     "sass": "^1.75.0"
   },
   "jest": {
-    "preset": "ts-jest"
+    "preset": "ts-jest",
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "<rootDir>/src/__mocks__/stylesMock.ts"
+    },
+    "testEnvironment": "jsdom"
   }
 }

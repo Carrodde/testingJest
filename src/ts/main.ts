@@ -1,6 +1,11 @@
 import "./../styles/main.scss";
-import { addTodo, changeTodo, removeAllTodos } from "./functions";
+import { addTodo, removeAllTodos } from "./functions";
+import { createHtml } from "./htmlFunctions";
 import { Todo } from "./models/todo";
+
+export function sendMessage(theMessage: string) {
+  return theMessage;
+}
 
 let todos: Todo[] = JSON.parse(localStorage.getItem("todos") || "[]");
 
@@ -29,37 +34,6 @@ function createNewTodo(todoText: string, todos: Todo[]) {
   } else {
     displayError(result.error, true);
   }
-}
-
-function createHtml(todos: Todo[]) {
-  localStorage.setItem("todos", JSON.stringify(todos));
-
-  let todosContainer: HTMLUListElement = document.getElementById(
-    "todos"
-  ) as HTMLUListElement;
-
-  todosContainer.innerHTML = "";
-
-  for (let i = 0; i < todos.length; i++) {
-    let li: HTMLLIElement = document.createElement("li");
-
-    if (todos[i].done) {
-      li.classList.add("todo__text--done");
-    }
-
-    li.classList.add("todo__text");
-    li.innerHTML = todos[i].text;
-    li.addEventListener("click", () => {
-      toggleTodo(todos[i]);
-    });
-
-    todosContainer.appendChild(li);
-  }
-}
-
-function toggleTodo(todo: Todo) {
-  changeTodo(todo);
-  createHtml(todos);
 }
 
 function displayError(error: string, show: boolean) {
